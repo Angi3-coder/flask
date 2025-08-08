@@ -1,0 +1,9 @@
+#ignore database file
+instance/
+
+#ignore Python cache files
+__pycache__/
+*.pyc
+
+#ignore virtual environment folders
+venv/

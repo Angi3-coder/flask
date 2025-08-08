@@ -11,6 +11,7 @@ class Students(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String)
     email=db.Column(db.String)
+    password = db.Column(db.String)
 
     #representation method - used to define how objects should be represented when printed
     def __repr__(self):
