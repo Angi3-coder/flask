@@ -1,7 +1,16 @@
 from flask_sqlalchemy import SQLAlchemy
+# from slqalchemy.orm import validates
 
 #create an SQLAlchemy object
 db = SQLAlchemy()
+
+
+#association table
+student_assignment = db.Table('student_assignment',
+    db.Column('student_id', db.Integer, db.ForeignKey('students.id'), primary_key=True),
+    db.Column('assignment_id', db.Integer, db.ForeignKey('assignments.id'), primary_key=True)
+
+)
 
 #Define model
 class Students(db.Model):
@@ -9,10 +18,33 @@ class Students(db.Model):
     # __tablename__ = 'students'
 
     id = db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String)
-    email=db.Column(db.String)
-    password = db.Column(db.String)
+    name=db.Column(db.String, nullable = False)
+    email=db.Column(db.String(128), nullable=False, unique=True)
+    password = db.Column(db.String, nullable=False)
+
+    #links a student to a course
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
+
+    #list
+    assignments = db.relationship('Assignments', secondary=student_assignment, back_populates='students')
 
     #representation method - used to define how objects should be represented when printed
     def __repr__(self):
         return f"Student: {self.name} {self.email}"
+    
+class Course(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+
+    #create a list of students in this course
+    students= db.relationship('Students', back_populates='course') #back_ref
+
+class Assignments(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+
+    #create a list
+    students = db.relationship('Students',secondary=student_assignment, back_populates='assignments')
+    
+
+    

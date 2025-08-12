@@ -9,9 +9,9 @@ with app.app_context():
 
     #add Students
     student1 = Students(name="Alice", email="a@gmail.com", password="alice123")
-    student2 = Students(name="Bob", email="bob@gmail.com", password="bob123")
-    student3 = Students(name="Jane", email="jane@gmail.com", password="jane123")
-    student4 = Students(name="John", email="john@gmail.com", password="john123")
+    student2 = Students(name="Bob", email="bob@gmail.com", password="bob12345")
+    student3 = Students(name="Jane", email="jane@gmail.com", password="jane1235676")
+    student4 = Students(name="John", email="john@gmail.com", password="john1234")
     student5 = Students(name="Charlie", email="charlie@gmail.com", password="Charlie123")
 
 
