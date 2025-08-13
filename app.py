@@ -37,11 +37,42 @@ def students():
             'id': student.id,
             'name': student.name,
             'email': student.email,
-            'password': student.password
-        } 
+            'password': student.password,
+            'course_id': student.course.id if student.course else None,
+            'assignments': [
+                {
+                    'id': assignment.id,
+                    'title': assignment.title
+                } for assignment in student.assignments
+            ]
+        }
         students_list.append(student_dict)
 
     return jsonify(students_list)
+
+
+#get student by ID
+@app.route('/students/<int:id>', methods=['GET'])
+def get_student_by_id(id):
+    student = Students.query.get(id)
+
+    if not student:
+        return jsonify({'error': 'Student not found'}), 404
+
+    student_data = {
+        'id': student.id,
+        'name': student.name,
+        'email': student.email,
+        'password': student.password,
+        'course_id': student.course.id if student.course else None,
+        'assignments': [
+            {
+                'id': assignment.id,
+                'title': assignment.title
+            } for assignment in student.assignments
+        ]
+    }
+    return jsonify(student_data), 200
 
 
 #app.run

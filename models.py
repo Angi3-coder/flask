@@ -25,6 +25,7 @@ class Students(db.Model):
     #links a student to a course
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
 
+    course = db.relationship('Course', back_populates='students')
     #list
     assignments = db.relationship('Assignments', secondary=student_assignment, back_populates='students')
 
