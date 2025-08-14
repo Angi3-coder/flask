@@ -39,3 +39,6 @@ Apply migration
 ```
 flask db upgrade
 ```
+## Seeding you Database
+The act of prefilling your database with test data to test your app
+Create a seed.py file 
